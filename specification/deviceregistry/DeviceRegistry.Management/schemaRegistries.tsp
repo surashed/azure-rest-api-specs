@@ -9,11 +9,12 @@ using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
 using Azure.ResourceManager;
-using OpenAPI;
 
 namespace Microsoft.DeviceRegistry;
 
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @doc("Schema registry definition.")
 model SchemaRegistry is TrackedResource<SchemaRegistryProperties> {
   @doc("Schema registry name parameter.")
@@ -29,14 +30,16 @@ model SchemaRegistry is TrackedResource<SchemaRegistryProperties> {
 }
 
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @doc("Defines the schema registry properties.")
 model SchemaRegistryProperties {
   @doc("Globally unique, immutable, non-reusable id.")
-  @visibility("read")
+  @visibility(Lifecycle.Read)
   uuid?: string;
 
   @doc("Schema registry namespace. Uniquely identifies a schema registry within a tenant.")
-  @visibility("read", "create")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
   @pattern("^[a-z0-9][a-z0-9-]*[a-z0-9]$")
   @maxLength(32)
   `namespace`: string;
@@ -48,15 +51,17 @@ model SchemaRegistryProperties {
   description?: string;
 
   @doc("The Storage Account's Container URL where schemas will be stored.")
-  @visibility("read", "create")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
   storageAccountContainerUrl: string;
 
   @doc("Provisioning state of the resource.")
-  @visibility("read")
+  @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 }
 
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @parentResource(SchemaRegistry)
 @doc("Schema definition.")
 model Schema is ProxyResource<SchemaProperties> {
@@ -71,10 +76,12 @@ model Schema is ProxyResource<SchemaProperties> {
 }
 
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @doc("Defines the schema properties.")
 model SchemaProperties {
   @doc("Globally unique, immutable, non-reusable id.")
-  @visibility("read")
+  @visibility(Lifecycle.Read)
   uuid?: string;
 
   @doc("Human-readable display name.")
@@ -84,15 +91,15 @@ model SchemaProperties {
   description?: string;
 
   @doc("Format of the schema.")
-  @visibility("read", "create")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
   format: Format;
 
   @doc("Type of the schema.")
-  @visibility("read", "create")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
   schemaType: SchemaType;
 
   @doc("Provisioning state of the resource.")
-  @visibility("read")
+  @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" ""
@@ -102,6 +109,8 @@ model SchemaProperties {
 }
 
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @doc("Defines the schema format.")
 union Format {
   @doc("JSON Schema version draft 7 format")
@@ -114,6 +123,8 @@ union Format {
 }
 
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @doc("Defines the schema type.")
 union SchemaType {
   @doc("Message Schema schema type")
@@ -123,6 +134,8 @@ union SchemaType {
 }
 
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @parentResource(Schema)
 @doc("Schema version's definition.")
 model SchemaVersion is ProxyResource<SchemaVersionProperties> {
@@ -137,36 +150,33 @@ model SchemaVersion is ProxyResource<SchemaVersionProperties> {
 }
 
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @doc("Defines the schema version properties.")
 model SchemaVersionProperties {
   @doc("Globally unique, immutable, non-reusable id.")
-  @visibility("read")
+  @visibility(Lifecycle.Read)
   uuid?: string;
 
   @doc("Human-readable description of the schema.")
   description?: string;
 
   @doc("Schema content.")
-  @visibility("read", "create")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
   schemaContent: string;
 
   @doc("Hash of the schema content.")
-  @visibility("read")
+  @visibility(Lifecycle.Read)
   hash?: string;
 
   @doc("Provisioning state of the resource.")
-  @visibility("read")
+  @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 }
 
-// The updateable properties of the Schema Registry.
-// This is a workaround to fix the patch payload that otherwise will expose the 'location' field (not present in patch),
-// since otherwise it extends the ARM TrackedResource type.
-alias SchemaRegistriesPropertiesUpdate = {
-  ...OptionalProperties<UpdateableProperties<SchemaRegistryProperties>>;
-};
-
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @armResourceOperations
 interface SchemaRegistries {
   get is ArmResourceRead<SchemaRegistry>;
@@ -178,7 +188,7 @@ interface SchemaRegistries {
     SchemaRegistry,
     Azure.ResourceManager.Foundations.ResourceUpdateModel<
       SchemaRegistry,
-      SchemaRegistriesPropertiesUpdate
+      SchemaRegistryProperties
     >
   >;
   delete is ArmResourceDeleteWithoutOkAsync<SchemaRegistry>;
@@ -187,6 +197,8 @@ interface SchemaRegistries {
 }
 
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @armResourceOperations
 interface Schemas {
   get is ArmResourceRead<Schema>;
@@ -196,6 +208,8 @@ interface Schemas {
 }
 
 @added(Versions.v2024_09_01_preview)
+@removed(Versions.v2024_11_01)
+@added(Versions.v2025_07_01_preview)
 @armResourceOperations
 interface SchemaVersions {
   get is ArmResourceRead<SchemaVersion>;
