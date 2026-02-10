@@ -690,7 +690,7 @@ input-file:
 - Microsoft.Security/stable/2022-05-01/settings.json
 - Microsoft.Security/stable/2023-05-01/ServerVulnerabilityAssessmentsSettings.json
 - Microsoft.Security/stable/2023-11-15/apiCollections.json
-- Microsoft.Security/stable/2024-01-01/pricings.json
+- Microsoft.Security/preview/2025-10-01-preview/pricings.json
 - Microsoft.Security/stable/2024-08-01/securityStandards.json
 - Microsoft.Security/stable/2024-08-01/standardAssignments.json
 - Microsoft.Security/stable/2024-08-01/customRecommedations.json
