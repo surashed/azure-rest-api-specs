@@ -130,7 +130,7 @@ These settings apply only when `--tag=package-preview-2025-10-01-preview` is spe
 
 ```yaml $(tag) == 'package-preview-2025-10-01-preview'
 input-file:
-  - Preview/2025-10-01-preview/pricings.json
+  - preview/2025-10-01-preview/pricings.json
   - preview/2025-10-01-preview/operations.json
   - preview/2025-10-01-preview/operationResults.json
   - preview/2025-10-01-preview/operationStatuses.json

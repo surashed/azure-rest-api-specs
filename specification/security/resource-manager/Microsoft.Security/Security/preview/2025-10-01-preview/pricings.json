@@ -389,10 +389,7 @@
                   {
                     "planName": "StorageAccounts",
                     "success": false,
-                    "error": {
-                      "code": "InvalidConfiguration",
-                      "message": "The specified subplan 'DefenderForStorageV2' is not available in this region."
-                    }
+                    "errorMessage": "The specified subplan 'DefenderForStorageV2' is not available in this region."
                   }
                 ],
                 "summary": {
