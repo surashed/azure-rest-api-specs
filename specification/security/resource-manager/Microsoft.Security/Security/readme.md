@@ -130,7 +130,7 @@ These settings apply only when `--tag=package-preview-2025-10-01-preview` is spe
 
 ```yaml $(tag) == 'package-preview-2025-10-01-preview'
 input-file:
-  - preview/2025-10-01-preview/pricings.json
+  - Preview/2025-10-01-preview/pricings.json
   - preview/2025-10-01-preview/operations.json
   - preview/2025-10-01-preview/operationResults.json
   - preview/2025-10-01-preview/operationStatuses.json
@@ -147,14 +147,22 @@ input-file:
   - preview/2025-09-01-preview/privateLinks.json
 ```
 
-### Tag: package-preview-2025-05-04
+### Tag: package-preview-2025-05-04-preview
 
-These settings apply only when `--tag=package-preview-2025-05-04` is specified on the command line.
+These settings apply only when `--tag=package-preview-2025-05-04-preview` is specified on the command line.
 
-```yaml $(tag) == 'package-preview-2025-05-04'
+```yaml $(tag) == 'package-preview-2025-05-04-preview'
 input-file:
+  - preview/2025-05-04-preview/operations.json
   - preview/2025-05-04-preview/assessmentMetadata.json
   - preview/2025-05-04-preview/assessments.json
+suppressions:
+  - code: GetResponseCodes
+    from: operationResults.json
+    where:
+          - $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.Security/locations/{location}/operationResults/{operationId}"].get.responses["204"]
+    reason: According to the [Azure Resource Manager async API reference spec](https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/async-api-reference.md), the 204 No Content response status code
+      is required for polling operations when the operation has completed successfully with no content to return.
 ```
 
 ### Tag: package-2025-03
@@ -676,6 +684,7 @@ input-file:
 - stable/2022-05-01/settings.json
 - stable/2023-05-01/ServerVulnerabilityAssessmentsSettings.json
 - stable/2023-11-15/apiCollections.json
+- stable/2024-01-01/pricings.json
 - preview/2025-10-01-preview/pricings.json
 - stable/2024-08-01/securityStandards.json
 - stable/2024-08-01/standardAssignments.json
@@ -747,8 +756,8 @@ input-file:
 - stable/2020-01-01/securitySolutionsReferenceData.json
 - stable/2020-01-01/serverVulnerabilityAssessments.json
 - stable/2020-01-01/topologies.json
-- preview/2025-05-04-preview/assessmentMetadata.json
-- preview/2025-05-04-preview/assessments.json
+- stable/2021-06-01/assessmentMetadata.json
+- stable/2021-06-01/assessments.json
 - stable/2022-01-01/alerts.json
 - stable/2022-05-01/settings.json
 - stable/2023-01-01/pricings.json
