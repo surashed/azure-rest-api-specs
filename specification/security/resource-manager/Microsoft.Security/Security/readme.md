@@ -147,14 +147,14 @@ input-file:
   - preview/2025-09-01-preview/privateLinks.json
 ```
 
-### Tag: package-2025-05-04
+### Tag: package-preview-2025-05-04
 
-These settings apply only when `--tag=package-2025-05-04` is specified on the command line.
+These settings apply only when `--tag=package-preview-2025-05-04` is specified on the command line.
 
-```yaml $(tag) == 'package-2025-05-04'
+```yaml $(tag) == 'package-preview-2025-05-04'
 input-file:
-  - stable/2025-05-04/assessmentMetadata.json
-  - stable/2025-05-04/assessments.json
+  - preview/2025-05-04-preview/assessmentMetadata.json
+  - preview/2025-05-04-preview/assessments.json
 ```
 
 ### Tag: package-2025-03
@@ -651,8 +651,8 @@ input-file:
 - preview/2023-12-01-preview/automations.json
 - preview/2023-12-01-preview/securityContacts.json
 - preview/2024-08-01-preview/securityConnectors.json
-- stable/2025-05-04/assessmentMetadata.json
-- stable/2025-05-04/assessments.json
+- preview/2025-05-04-preview/assessmentMetadata.json
+- preview/2025-05-04-preview/assessments.json
 - preview/2025-09-01-preview/defenderForStorageSettings.json
 - preview/2025-11-01-preview/securityConnectorsDevOps.json
 - preview/2025-10-01-preview/operations.json
@@ -747,8 +747,8 @@ input-file:
 - stable/2020-01-01/securitySolutionsReferenceData.json
 - stable/2020-01-01/serverVulnerabilityAssessments.json
 - stable/2020-01-01/topologies.json
-- stable/2025-05-04/assessmentMetadata.json
-- stable/2025-05-04/assessments.json
+- preview/2025-05-04-preview/assessmentMetadata.json
+- preview/2025-05-04-preview/assessments.json
 - stable/2022-01-01/alerts.json
 - stable/2022-05-01/settings.json
 - stable/2023-01-01/pricings.json
