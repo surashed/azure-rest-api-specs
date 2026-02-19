@@ -238,22 +238,13 @@
       }
     },
     "/{scopeId}/providers/Microsoft.Security/pricings/batch": {
-      "put": {
+      "post": {
         "x-ms-examples": {
           "Batch update multiple pricing plans - success": {
             "$ref": "./examples/Pricings/BatchUpdatePricings_Success_example.json"
           },
           "Batch update with partial success": {
             "$ref": "./examples/Pricings/BatchUpdatePricings_PartialSuccess_example.json"
-          },
-          "Batch update with validation errors": {
-            "$ref": "./examples/Pricings/BatchUpdatePricings_ValidationError_example.json"
-          },
-          "Batch update with authorization failure": {
-            "$ref": "./examples/Pricings/BatchUpdatePricings_AuthError_example.json"
-          },
-          "Batch update with conflict error": {
-            "$ref": "./examples/Pricings/BatchUpdatePricings_ConflictError_example.json"
           }
         },
         "tags": [
@@ -274,148 +265,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Batch update completed successfully. All pricing plans were updated without errors.",
+            "description": "Batch update completed. Check the response body for individual plan results and summary statistics.",
             "schema": {
               "$ref": "#/definitions/BatchPricingUpdateResponse"
-            },
-            "examples": {
-              "application/json": {
-                "results": [
-                  {
-                    "planName": "VirtualMachines",
-                    "success": true,
-                    "result": {
-                      "id": "/subscriptions/20ff7fc3-e762-44dd-bd96-b71116dcdc23/providers/Microsoft.Security/pricings/VirtualMachines",
-                      "name": "VirtualMachines",
-                      "type": "Microsoft.Security/pricings",
-                      "properties": {
-                        "pricingTier": "Standard",
-                        "subPlan": "P2",
-                        "freeTrialRemainingTime": "PT0S",
-                        "enablementTime": "2023-03-01T12:42:42.1921106Z",
-                        "enforce": "False",
-                        "resourcesCoverageStatus": "FullyCovered",
-                        "extensions": [
-                          {
-                            "name": "AgentlessVmScanning",
-                            "isEnabled": "True",
-                            "operationStatus": {
-                              "code": "Succeeded",
-                              "message": "Successfully enabled extension"
-                            }
-                          }
-                        ],
-                        "securityOperatorResourceId": "/providers/Microsoft.Management/managementGroups/ContosoGroup/providers/Microsoft.Security/securityOperators/ContosoOperator"
-                      }
-                    }
-                  },
-                  {
-                    "planName": "StorageAccounts",
-                    "success": true,
-                    "result": {
-                      "id": "/subscriptions/20ff7fc3-e762-44dd-bd96-b71116dcdc23/providers/Microsoft.Security/pricings/StorageAccounts",
-                      "name": "StorageAccounts",
-                      "type": "Microsoft.Security/pricings",
-                      "properties": {
-                        "pricingTier": "Standard",
-                        "subPlan": "DefenderForStorageV2",
-                        "freeTrialRemainingTime": "PT0S",
-                        "enablementTime": "2023-03-01T12:42:42.1921106Z",
-                        "enforce": "False",
-                        "resourcesCoverageStatus": "FullyCovered",
-                        "extensions": [
-                          {
-                            "name": "OnUploadMalwareScanning",
-                            "isEnabled": "True",
-                            "additionalExtensionProperties": {
-                              "capGBPerMonth": "5000"
-                            },
-                            "operationStatus": {
-                              "code": "Succeeded",
-                              "message": "Successfully enabled extension"
-                            },
-                            "securityOperatorResourceId": "/subscriptions/20ff7fc3-e762-44dd-bd96-b71116dcdc23/providers/Microsoft.Security/securityOperators/ContosoHighPrivilegedOperator"
-                          }
-                        ],
-                        "securityOperatorResourceId": "/subscriptions/20ff7fc3-e762-44dd-bd96-b71116dcdc23/providers/Microsoft.Security/securityOperators/ContosoOperator"
-                      }
-                    }
-                  }
-                ],
-                "summary": {
-                  "totalRequested": 2,
-                  "successfulUpdates": 2,
-                  "failedUpdates": 0
-                }
-              }
-            }
-          },
-          "207": {
-            "description": "Multi-Status: Batch update completed with mixed results. Some pricing plans were updated successfully while others failed. Check individual results for the status of each pricing plan and refer to the summary for overall statistics.",
-            "schema": {
-              "$ref": "#/definitions/BatchPricingUpdateResponse"
-            },
-            "examples": {
-              "application/json": {
-                "results": [
-                  {
-                    "planName": "VirtualMachines",
-                    "success": true,
-                    "result": {
-                      "id": "/subscriptions/20ff7fc3-e762-44dd-bd96-b71116dcdc23/providers/Microsoft.Security/pricings/VirtualMachines",
-                      "name": "VirtualMachines",
-                      "type": "Microsoft.Security/pricings",
-                      "properties": {
-                        "pricingTier": "Standard",
-                        "subPlan": "P2",
-                        "freeTrialRemainingTime": "PT0S",
-                        "enablementTime": "2023-03-01T12:42:42.1921106Z",
-                        "enforce": "False",
-                        "resourcesCoverageStatus": "FullyCovered",
-                        "extensions": [
-                          {
-                            "name": "AgentlessVmScanning",
-                            "isEnabled": "True",
-                            "operationStatus": {
-                              "code": "Succeeded",
-                              "message": "Successfully enabled extension"
-                            }
-                          }
-                        ],
-                        "securityOperatorResourceId": "/subscriptions/20ff7fc3-e762-44dd-bd96-b71116dcdc23/providers/Microsoft.Security/securityOperators/ContosoOperator"
-                      }
-                    }
-                  },
-                  {
-                    "planName": "StorageAccounts",
-                    "success": false,
-                    "errorMessage": "The specified subplan 'DefenderForStorageV2' is not available in this region."
-                  }
-                ],
-                "summary": {
-                  "totalRequested": 2,
-                  "successfulUpdates": 1,
-                  "failedUpdates": 1
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request - Invalid request structure, unsupported scope (only subscription-level supported), validation errors, or batch size exceeds limit (max 30 plans).",
-            "schema": {
-              "$ref": "./common/v1/types.json#/definitions/CloudError"
-            }
-          },
-          "403": {
-            "description": "Forbidden - Insufficient permissions for subscription or authorization failures for specific extensions.",
-            "schema": {
-              "$ref": "./common/v1/types.json#/definitions/CloudError"
-            }
-          },
-          "409": {
-            "description": "Conflict - Enforcement policy violations or concurrent operation conflicts due to subscription-level locking.",
-            "schema": {
-              "$ref": "./common/v1/types.json#/definitions/CloudError"
             }
           },
           "default": {
@@ -730,6 +582,7 @@
           "items": {
             "$ref": "#/definitions/BatchPlanItem"
           },
+          "x-ms-identifiers": ["planName"],
           "minItems": 1,
           "maxItems": 30
         }
@@ -802,7 +655,8 @@
           "description": "Results for each individual pricing plan update within the batch operation",
           "items": {
             "$ref": "#/definitions/BatchPricingResult"
-          }
+          },
+          "x-ms-identifiers": ["planName"]
         },
         "summary": {
           "$ref": "#/definitions/BatchOperationSummary",
@@ -847,17 +701,20 @@
       "properties": {
         "totalRequested": {
           "type": "integer",
+          "format": "int32",
           "description": "Total number of pricing configurations requested for update in this batch",
           "minimum": 1,
           "maximum": 30
         },
         "successfulUpdates": {
           "type": "integer",
+          "format": "int32",
           "description": "Number of pricing configurations successfully updated",
           "minimum": 0
         },
         "failedUpdates": {
           "type": "integer",
+          "format": "int32",
           "description": "Number of pricing configurations that failed to update due to validation or authorization errors",
           "minimum": 0
         }

@@ -700,7 +700,7 @@ input-file:
 - stable/2022-05-01/settings.json
 - stable/2023-05-01/ServerVulnerabilityAssessmentsSettings.json
 - stable/2023-11-15/apiCollections.json
-- preview/2025-10-01-preview/pricings.json
+- stable/2024-01-01/pricings.json
 - stable/2024-08-01/securityStandards.json
 - stable/2024-08-01/standardAssignments.json
 - stable/2024-08-01/customRecommedations.json
